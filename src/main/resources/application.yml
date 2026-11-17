@@ -1,0 +1,40 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: divisas
+  http:
+    client:
+      connect-timeout: 3s
+      read-timeout: 6s
+
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/divisape}
+    username: ${DB_USER:divisape}
+    password: ${DB_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+seguridad:
+  jwt:
+    secreto: ${JWT_SECRET}
+    expiracion-minutos: ${JWT_EXPIRACION_MINUTOS:480}
+  cors:
+    origenes: ${CORS_ORIGENES:http://localhost:*,http://127.0.0.1:*}
+
+conversion:
+  remote:
+    url: ${CONVERSION_URL:}
+
+camel:
+  springboot:
+    name: divisas-camel
+
+bcrp:
+  base-url: https://estadisticas.bcrp.gob.pe/estadisticas/series/api
+  series:
+    compra: PD04639PD
+    venta: PD04640PD

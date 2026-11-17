@@ -1,0 +1,5 @@
+{"config":{"title":"Tipo de cambio","series":[{"name":"Compra","dec":"3"},{"name":"Venta","dec":"3"}]},"periods":[
+{"name":"10.Ago.26","values":["3.371","3.387"]},
+{"name":"11.Ago.26","values":["3.364","3.372"]},
+{"name":"12.Ago.26","values":["n.d.","n.d."]},
+{"name":"13.Ago.26","values":["3.360","n.d."]}]}

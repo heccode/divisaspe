@@ -1,0 +1,15 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: divisape-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?defina MYSQL_ROOT_PASSWORD en .env}
+      MYSQL_DATABASE: ${DB_NAME:-divisape}
+      MYSQL_USER: ${DB_USER:-divisape}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?defina DB_PASSWORD en .env}
+    ports:
+      - "3306:3306"
+    volumes:
+      - divisape-mysql-data:/var/lib/mysql
+volumes:
+  divisape-mysql-data:

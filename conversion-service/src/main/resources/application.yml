@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: divisas-conversion
+
+server:
+  port: ${CONVERSION_PORT:8081}

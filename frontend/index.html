@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DivisaPE - Dólares y soles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        integrity="sha384-XGjxtQfXaH2tnPFa9x+ruJTuLE3Aa6LhHSWRr1XeTyhezb4abCG4ccI5AkVDxqC+" crossorigin="anonymous">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="hero">
+    <nav class="container topnav">
+      <a class="brand" href="/" aria-label="DivisaPE">
+        <span class="brand-mark"><i class="bi bi-currency-exchange"></i></span>
+        <span class="brand-name">Divisa<span>PE</span></span>
+      </a>
+      <div id="menu-principal" class="nav-acciones menu"></div>
+    </nav>
+
+    <div class="container hero-body">
+      <p class="eyebrow">USD / PEN</p>
+      <h1>Dólares y soles, con el último tipo de cambio publicado</h1>
+      <p class="aviso"><i class="bi bi-info-circle"></i>
+        <span>Los montos son <strong>referenciales</strong> y se calculan con el tipo de cambio publicado por el BCRP. Pueden diferir de los aplicados por tu entidad financiera.</span>
+      </p>
+    </div>
+  </header>
+
+  <main class="container main-wrap">
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <section class="card panel panel-calc h-100" aria-labelledby="t-conv">
+          <div class="card-body">
+            <div class="panel-title mb-3">
+              <span class="step-icon"><i class="bi bi-arrow-left-right"></i></span>
+              <div>
+                <h2 id="t-conv">Convertir</h2>
+                <p class="hint">Elige cuánto quieres cambiar y entre qué monedas.</p>
+              </div>
+            </div>
+
+            <form id="form-conv" novalidate>
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <div class="form-floating">
+                    <input type="number" class="form-control form-control-lg" id="monto" min="0.01" step="0.01" value="100" placeholder="Monto">
+                    <label for="monto">Monto</label>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <div class="form-floating">
+                    <select class="form-select form-select-lg" id="origen"><option>USD</option><option>PEN</option></select>
+                    <label for="origen">De</label>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <div class="form-floating">
+                    <select class="form-select form-select-lg" id="destino"><option>PEN</option><option>USD</option></select>
+                    <label for="destino">A</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="acciones">
+                <button type="submit" id="btn-registrar" class="btn btn-primary btn-lg"><i class="bi bi-check2-circle"></i> Convertir y guardar</button>
+                <button type="button" id="btn-convertir" class="btn btn-outline-primary btn-lg">Solo convertir</button>
+                <button type="button" id="btn-cotizar" class="btn btn-outline-secondary btn-lg">Solo cotizar</button>
+              </div>
+
+              <ul class="leyenda">
+                <li><strong>Convertir y guardar</strong>: necesitas haber iniciado sesión; la conversión queda en tu historial.</li>
+                <li><strong>Solo convertir</strong>: hace la conversión sin guardarla.</li>
+                <li><strong>Solo cotizar</strong>: un cálculo rápido para tener una idea, tampoco se guarda.</li>
+              </ul>
+            </form>
+
+            <div id="conv-error" class="msg error" role="alert" hidden></div>
+            <div id="conv-resultado" class="msg ok" hidden></div>
+          </div>
+        </section>
+      </div>
+
+      <div class="col-lg-5">
+        <section class="card panel h-100" aria-labelledby="t-tc">
+          <div class="card-body">
+            <div class="panel-head">
+              <div class="panel-title">
+                <span class="step-icon"><i class="bi bi-graph-up-arrow"></i></span>
+                <div>
+                  <h2 id="t-tc">Tipo de cambio</h2>
+                  <p class="hint">Soles por cada dólar, según la SBS. Los datos vienen del BCRP.</p>
+                </div>
+              </div>
+              <button type="button" id="tc-recargar" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-clockwise"></i> Actualizar</button>
+            </div>
+            <div id="tc-estado" class="estado" aria-live="polite"></div>
+            <dl id="tc-datos" class="row g-3 datos" hidden>
+              <div class="col-6"><div class="stat stat-main"><dt>Compra</dt><dd id="tc-compra"></dd></div></div>
+              <div class="col-6"><div class="stat stat-main"><dt>Venta</dt><dd id="tc-venta"></dd></div></div>
+              <div class="col-6"><div class="stat"><dt>Datos al</dt><dd id="tc-fecha"></dd></div></div>
+              <div class="col-6"><div class="stat"><dt>Fuente</dt><dd id="tc-fuente"></dd></div></div>
+            </dl>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">DivisaPE · Datos del BCRP, montos solo referenciales.</footer>
+  <div id="toast" class="app-toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="/config.js"></script>
+  <script src="/comun.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

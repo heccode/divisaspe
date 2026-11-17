@@ -1,0 +1,10 @@
+.git
+.env
+target
+frontend
+conversion-service
+docs
+evidencias
+scripts
+*.zip
+**/.DS_Store

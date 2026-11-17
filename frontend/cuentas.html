@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cuentas bancarias - DivisaPE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        integrity="sha384-XGjxtQfXaH2tnPFa9x+ruJTuLE3Aa6LhHSWRr1XeTyhezb4abCG4ccI5AkVDxqC+" crossorigin="anonymous">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="hero hero-compacto">
+    <nav class="container topnav">
+      <a class="brand" href="/" aria-label="DivisaPE">
+        <span class="brand-mark"><i class="bi bi-currency-exchange"></i></span>
+        <span class="brand-name">Divisa<span>PE</span></span>
+      </a>
+      <div id="menu-principal" class="nav-acciones menu"></div>
+    </nav>
+    <div class="container hero-body">
+      <p class="eyebrow">CUENTAS BANCARIAS</p>
+      <h1>Tus cuentas para enviar y recibir dinero</h1>
+    </div>
+  </header>
+
+  <main class="container main-wrap">
+    <div id="cuentas-error" class="msg error mt-0 mb-3" role="alert" hidden></div>
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <section class="card panel h-100" aria-labelledby="t-envio">
+          <div class="card-body">
+            <div class="panel-head">
+              <div class="panel-title">
+                <span class="step-icon"><i class="bi bi-box-arrow-up-right"></i></span>
+                <div>
+                  <h2 id="t-envio">Enviar dinero a la casa de cambio</h2>
+                  <p class="hint">Cuentas desde las que nos transfieres el monto a cambiar.</p>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" data-agregar="ENVIO"><i class="bi bi-plus-lg"></i> Agregar cuenta</button>
+            </div>
+            <div id="lista-ENVIO" class="lista-cuentas" aria-live="polite"></div>
+          </div>
+        </section>
+      </div>
+      <div class="col-lg-6">
+        <section class="card panel h-100" aria-labelledby="t-recepcion">
+          <div class="card-body">
+            <div class="panel-head">
+              <div class="panel-title">
+                <span class="step-icon"><i class="bi bi-box-arrow-in-down-left"></i></span>
+                <div>
+                  <h2 id="t-recepcion">Recibir dinero de la casa de cambio</h2>
+                  <p class="hint">Cuentas donde te depositamos el resultado del cambio.</p>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" data-agregar="RECEPCION"><i class="bi bi-plus-lg"></i> Agregar cuenta</button>
+            </div>
+            <div id="lista-RECEPCION" class="lista-cuentas" aria-live="polite"></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">DivisaPE · Datos del BCRP, montos solo referenciales.</footer>
+
+  <dialog id="dlg-cuenta" class="modal-app" aria-labelledby="dlg-cuenta-titulo">
+    <form id="form-cuenta" novalidate>
+      <div class="modal-app-cabecera">
+        <h2 id="dlg-cuenta-titulo"></h2>
+        <button type="button" class="btn-close" id="dlg-cuenta-cerrar" aria-label="Cerrar"></button>
+      </div>
+      <div class="vstack gap-3 modal-app-cuerpo">
+        <div class="row g-3">
+          <div class="col-12 col-sm-5">
+            <div class="form-floating">
+              <select class="form-select" id="cta-moneda">
+                <option value="USD">Dólares (USD)</option>
+                <option value="PEN">Soles (PEN)</option>
+              </select>
+              <label for="cta-moneda">Moneda</label>
+            </div>
+          </div>
+          <div class="col-12 col-sm-7">
+            <div class="form-floating">
+              <select class="form-select" id="cta-banco"></select>
+              <label for="cta-banco">Banco</label>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="cta-numero" inputmode="numeric" maxlength="20" autocomplete="off" placeholder="Número de cuenta">
+            <label for="cta-numero">Número de cuenta</label>
+          </div>
+          <div class="form-text">Solo números, entre 10 y 20 dígitos.</div>
+        </div>
+        <div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="cta-cci" inputmode="numeric" maxlength="20" autocomplete="off" placeholder="CCI">
+            <label for="cta-cci">CCI</label>
+          </div>
+          <div class="form-text">20 dígitos. Los tres primeros identifican al banco.</div>
+        </div>
+        <div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="cta-titular" maxlength="120" autocomplete="off" placeholder="Nombres y apellidos del titular">
+            <label for="cta-titular">Nombres y apellidos del titular</label>
+          </div>
+        </div>
+        <div id="cta-error" class="msg error mt-0" role="alert" hidden></div>
+      </div>
+      <div class="modal-app-pie">
+        <button type="button" class="btn btn-outline-secondary" id="dlg-cuenta-cancelar">Cancelar</button>
+        <button type="submit" class="btn btn-primary"><i class="bi bi-check2-circle"></i> Guardar cuenta</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="app-toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="/config.js"></script>
+  <script src="/comun.js"></script>
+  <script src="/cuentas.js"></script>
+</body>
+</html>
